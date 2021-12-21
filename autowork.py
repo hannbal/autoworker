@@ -30,6 +30,7 @@ class myqt(QMainWindow):
         self.file_list={}  
         self.desktop = QApplication.desktop()
         self.screenRect = self.desktop.screenGeometry()
+        #op_list 中添加新命令时，建议加在最后，对应的运行在下方run函数中
         self.op_list=["单击","双击","右击","移动、悬停","输入","回车","滚轮","热键","windows命令行","等待"]
         # self.pd_data={}
         
@@ -66,7 +67,7 @@ class myqt(QMainWindow):
         self.layout_top= QHBoxLayout()
         self.label_name = QLabel("使用说明",self)
         self.layout_top.addWidget(self.label_name)
-        self.label_text = QLabel("单击,双击,右击,移动、悬停,输入,回车,滚轮,热键,windows命令行,等待,运行前请先保存！",self)
+        self.label_text = QLabel("操作可以选择单击,双击,右击,移动、悬停,输入,回车,滚轮,热键,windows命令行,等待。\n回车和滚轴无需输入命令值;单击,双击,右击,移动、悬停,在命令值中输入图片路径。\n指定次数运行时，遇到无法运行的命令会直接停止执行命令。\n循环远行过程中按“ESC”键可退出。\n运行前请先保存！",self)
         self.label_text.setWordWrap(True)
         self.label_text.setStyleSheet("QLabel{padding:8px}")
         self.layout_top.addWidget(self.label_text)
@@ -306,6 +307,7 @@ class myqt(QMainWindow):
         else:    
             self.op_table_view.removeRow(row)
     
+    #run里的子函数对应每一个操作
     def run(self):
         def click(pngfile):
             #单击
@@ -391,6 +393,7 @@ class myqt(QMainWindow):
         for times in range(self.edit_text.value()):
             for row in range(rowcount):
                 actioncode = self.op_table_view.item(row,1).text()
+                #每一个判断对应op_list设置的操作
                 if self.op_table_view.cellWidget(row,0).currentIndex() ==0:
                     try:
                         click(actioncode.strip())
