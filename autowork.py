@@ -9,6 +9,7 @@ Created on Mon Dec 13 16:27:35 2021
 import pandas as pd
 import pyautogui as pag
 import pyperclip
+import os
 import  os.path, sys,glob
 from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget,QTableWidget,QGridLayout,QHBoxLayout,QVBoxLayout,QTableWidgetItem
 from PyQt5.QtWidgets import QLabel,QGroupBox,QListWidget,QPushButton,QTabWidget,QListWidgetItem,QHeaderView,QComboBox,QSpinBox,QRadioButton
@@ -18,6 +19,7 @@ from PyQt5.QtCore import Qt,QModelIndex
 from pynput import keyboard
 import time
 import _thread
+
 
 class mytab(QTabWidget):
     def __init__(self, *args, **kwargs):
@@ -375,9 +377,10 @@ class myqt(QMainWindow):
             except Exception as e:
                 print(e)
 
-        def windows_cmd():
+        def windows_cmd(text):
             #window
-            print('windows_cmd')
+            exit_code = os.system(text)
+            # print('windows_cmd',text)
 
 
         def wait_for(sec):
@@ -453,7 +456,7 @@ class myqt(QMainWindow):
                     
                     
                 elif self.op_table_view.cellWidget(row,0).currentIndex() ==8:
-                    windows_cmd()
+                    windows_cmd(actioncode)
                     
                 elif self.op_table_view.cellWidget(row,0).currentIndex() ==9:
                     if self.op_table_view.item(row,1).text().isnumeric():
